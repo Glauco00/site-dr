@@ -21,11 +21,20 @@ class MobileNavbar {
     });
   }
 
-  handleClick() {
-    this.navList.classList.toggle(this.activeClass);
-    this.mobileMenu.classList.toggle(this.activeClass);
+  toggleBodyScroll(enable) {
+    if (enable) {
+      document.body.style.overflow = ""; // Reativa a rolagem
+    } else {
+      document.body.style.overflow = "hidden"; // Desativa a rolagem
+    }
+  }
 
-    if (this.navList.classList.contains(this.activeClass)) {
+  handleClick() {
+    const isActive = this.navList.classList.toggle(this.activeClass);
+    this.mobileMenu.classList.toggle(this.activeClass);
+    this.toggleBodyScroll(!isActive);
+
+    if (isActive) {
       this.animateLinks();
     } else {
       this.removeAnimations();
@@ -36,6 +45,7 @@ class MobileNavbar {
     this.navList.classList.remove(this.activeClass);
     this.mobileMenu.classList.remove(this.activeClass);
     this.removeAnimations();
+    this.toggleBodyScroll(true);
   }
 
   addClickEvent() {
